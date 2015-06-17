@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     com_example_test_NativeUtil
+ * Method:    computeDescripors
+ * Signature: (JJJ)V
+ */
+JNIEXPORT void JNICALL Java_com_example_test_NativeUtil_computeDescripors
+  (JNIEnv *, jclass, jlong, jlong, jlong);
+
+/*
+ * Class:     com_example_test_NativeUtil
  * Method:    detectFeatures
  * Signature: (JJJ)V
  */
