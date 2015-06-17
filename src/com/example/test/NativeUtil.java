@@ -2,6 +2,8 @@ package com.example.test;
 
 public class NativeUtil {
 	
+	public native static void detectFeatures(long mGrayAddr, long mRgbaAddr, long mDescriptorAddr);
+	
 	public native static int[] transformToGray(int[] pixels, int w, int h) ;
 	/*
 	 * A native method that is implemented by the 'hello-jni' native library,

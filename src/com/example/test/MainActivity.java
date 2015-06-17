@@ -10,8 +10,8 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +25,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private TextView tv;
 	private Button btn;
+	private Button btn_feature;
 	private ImageView imageView;
 	private Bitmap bitmap;
-	private static final String  TAG = "Sample::Feature Detection::Activity";
+	private static final String  TAG = "Hello OpenCV for Android::Activity";
 
 	// callback for handling the connection status
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
@@ -55,6 +56,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		tv = (TextView) findViewById(R.id.txt_view);
 		btn = (Button) findViewById(R.id.btn_gray);
+		btn_feature = (Button) findViewById(R.id.btn_feature);
 		imageView = (ImageView) findViewById(R.id.image_view);
 		
 		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wheat);
@@ -62,6 +64,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		imageView.setImageBitmap(bitmap);
 		
 		btn.setOnClickListener(this);
+		btn_feature.setOnClickListener(new Button.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent feature = new Intent(getApplicationContext(), FeatureActivity.class);
+				startActivity(feature);
+			}
+			
+		}
+		);
 	}
 
 	@Override
@@ -92,10 +104,4 @@ public class MainActivity extends Activity implements OnClickListener {
 		// You can choose it.
 		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_11, this,
 				mLoaderCallback);
-	}
-	/*
-	 * this is used to load the 'hello-jni' library on application startup.
-	 * 
-	 * static { System.loadLibrary("native-util"); }
-	 */
-}
+	}}

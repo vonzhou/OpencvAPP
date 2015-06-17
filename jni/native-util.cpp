@@ -1,6 +1,8 @@
+#include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/nonfree/features2d.hpp> //
+#include <opencv2/features2d/features2d.hpp>
+
 #include <string>
 #include <iostream>
 #include "com_example_test_NativeUtil.h"
@@ -8,6 +10,25 @@
 using namespace std;
 using namespace cv;
 extern "C" {
+
+JNIEXPORT void JNICALL Java_com_example_test_NativeUtil_detectFeatures(
+		JNIEnv *env, jclass thiz, jlong mGrayAddr, jlong mRgbaAddr, jlong mDescriptorAddr) {
+	Mat* pMatGr=(Mat*)mGrayAddr;
+	Mat* pMatRgb=(Mat*)mRgbaAddr;
+	Mat* pMatDesc=(Mat*)mDescriptorAddr;
+	vector<KeyPoint> v;
+
+	//OrbFeatureDetector detector(50);
+	OrbFeatureDetector detector;
+	OrbDescriptorExtractor extractor;
+	detector.detect(*pMatGr, v);
+	extractor.compute( *pMatGr, v, *pMatDesc );
+	circle(*pMatRgb, Point(100,100), 10, Scalar(5,128,255,255));
+	for( size_t i = 0; i < v.size(); i++ ) {
+		circle(*pMatRgb, Point(v[i].pt.x, v[i].pt.y), 10, Scalar(255,128,0,255));
+	}
+}
+
 
 JNIEXPORT jintArray JNICALL Java_com_example_test_NativeUtil_transformToGray(
 		JNIEnv *env, jclass obj, jintArray pixels, jint width, jint height) {
@@ -21,14 +42,6 @@ JNIEXPORT jintArray JNICALL Java_com_example_test_NativeUtil_transformToGray(
 
 	//create the Mat and use your int array as input
 	Mat imgData(height, width, CV_8UC4, (unsigned char*) buf);
-
-	SiftFeatureDetector detector;
-	vector<KeyPoint> keypoints;
-	detector.detect(input, keypoints);
-
-	// show the keypoints on an image
-	Mat output;
-	drawKeypoints(input, keypoints, output);
 
 	int size = width * height;
 	jintArray result = env->NewIntArray(size);
