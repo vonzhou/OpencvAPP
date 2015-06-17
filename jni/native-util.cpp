@@ -12,21 +12,24 @@ using namespace cv;
 extern "C" {
 
 JNIEXPORT void JNICALL Java_com_example_test_NativeUtil_detectFeatures(
-		JNIEnv *env, jclass thiz, jlong mGrayAddr, jlong mRgbaAddr, jlong mDescriptorAddr) {
+		JNIEnv *env, jclass thiz, jlong mGrayAddr, jlong mRgbaAddr, jlong mOutputAddr) {
 	Mat* pMatGr=(Mat*)mGrayAddr;
 	Mat* pMatRgb=(Mat*)mRgbaAddr;
-	Mat* pMatDesc=(Mat*)mDescriptorAddr;
+	Mat* pMatDesc=(Mat*)mOutputAddr;
 	vector<KeyPoint> v;
 
 	//OrbFeatureDetector detector(50);
 	OrbFeatureDetector detector;
 	OrbDescriptorExtractor extractor;
 	detector.detect(*pMatGr, v);
+	/*
 	extractor.compute( *pMatGr, v, *pMatDesc );
 	circle(*pMatRgb, Point(100,100), 10, Scalar(5,128,255,255));
 	for( size_t i = 0; i < v.size(); i++ ) {
 		circle(*pMatRgb, Point(v[i].pt.x, v[i].pt.y), 10, Scalar(255,128,0,255));
 	}
+	*/
+	drawKeypoints(*pMatGr, v, *pMatDesc);
 }
 
 

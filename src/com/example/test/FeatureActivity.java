@@ -7,9 +7,9 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +25,8 @@ public class FeatureActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feature);
+		// Set background color
+		getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
 		btn_feature_detect = (Button) findViewById(R.id.btn_feature_detect);
 		imageFeatureView = (ImageView) findViewById(R.id.image_feature_view);
@@ -41,7 +43,7 @@ public class FeatureActivity extends Activity {
 				int height = bitmap.getHeight();
 				Mat mRgba = new Mat(height, width, CvType.CV_8U, new Scalar(4));
 				Mat mGray = new Mat(height, width, CvType.CV_8U, new Scalar(4));
-				Mat descriptor = new Mat();
+				Mat output = new Mat();
 				
 				Utils.bitmapToMat(bitmap, mRgba);
 				
@@ -49,17 +51,16 @@ public class FeatureActivity extends Activity {
 				// Converts an image from one color space to another.
 				Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_RGB2GRAY, 4);
 				
-				NativeUtil.detectFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), descriptor.getNativeObjAddr());
+				NativeUtil.detectFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), output.getNativeObjAddr());
 
 				// Then convert the processed Mat to Bitmap
-				Bitmap resultBitmap = Bitmap.createBitmap(descriptor.cols(),
-						descriptor.rows(), Bitmap.Config.ARGB_8888);
+				Bitmap resultBitmap = Bitmap.createBitmap(output.cols(),
+						output.rows(), Bitmap.Config.ARGB_8888);
 				
-				Utils.matToBitmap(descriptor, resultBitmap);
+				Utils.matToBitmap(output, resultBitmap);
 
 				imageFeatureView.setImageBitmap(resultBitmap);
 			}
-
 		});
 	}
 
