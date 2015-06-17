@@ -26,6 +26,10 @@
             android:name=".FeatureActivity"
             android:label="@string/title_activity_feature" >
         </activity>
+         <activity
+            android:name=".DescriptorActivity"
+            android:label="@string/title_activity_descriptor" >
+        </activity>
     </application>
 
 </manifest>

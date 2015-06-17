@@ -7,39 +7,36 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class FeatureActivity extends Activity {
-	private Button btn_feature_detect;
-	private Button btn_feature_next;
-	private ImageView imageFeatureView;
+public class DescriptorActivity extends Activity {
+	private Button btn_descriptor;
+	private ImageView imageView;
 	private Bitmap bitmap;
-	private static final String TAG = "Feature Detection::Activity";
+	private static final String TAG = "Feature Descriptor::Activity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_feature);
+		setContentView(R.layout.activity_descriptor);
 		// Set background color
 		getWindow().getDecorView().setBackgroundColor(Color.LTGRAY);
 
-		btn_feature_detect = (Button) findViewById(R.id.btn_feature_detect);
-		btn_feature_next = (Button) findViewById(R.id.btn_feature_next);
-		
-		imageFeatureView = (ImageView) findViewById(R.id.image_feature_view);
+		btn_descriptor = (Button) findViewById(R.id.btn_descriptor);
+		imageView = (ImageView) findViewById(R.id.descriptor_image_view);
 
 		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wheat);
 
-		imageFeatureView.setImageBitmap(bitmap);
+		imageView.setImageBitmap(bitmap);
 
-		btn_feature_detect.setOnClickListener(new Button.OnClickListener() {
+		btn_descriptor.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -55,28 +52,19 @@ public class FeatureActivity extends Activity {
 				// Converts an image from one color space to another.
 				Imgproc.cvtColor(mRgba, mGray, Imgproc.COLOR_RGB2GRAY, 4);
 				
-				NativeUtil.detectFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), output.getNativeObjAddr());
+				NativeUtil.computeDescripors(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), output.getNativeObjAddr());
 
+				Log.i(TAG, "Row:"+output.rows() + ",Col:" + output.cols() + ",channels:"+output.channels());
+				
 				// Then convert the processed Mat to Bitmap
 				Bitmap resultBitmap = Bitmap.createBitmap(output.cols(),
 						output.rows(), Bitmap.Config.ARGB_8888);
 				
 				Utils.matToBitmap(output, resultBitmap);
 
-				imageFeatureView.setImageBitmap(resultBitmap);
+				imageView.setImageBitmap(resultBitmap);
 			}
 		});
-		
-		btn_feature_next.setOnClickListener(new Button.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(), DescriptorActivity.class);
-				startActivity(intent);
-			}
-			
-		});
-		
 	}
 
 }

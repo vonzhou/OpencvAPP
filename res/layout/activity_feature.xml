@@ -5,16 +5,30 @@
     android:orientation="vertical"
     tools:context="com.example.test.FeatureActivity" >
 
-    <Button
-        android:id="@+id/btn_feature_detect"
-        android:layout_width="wrap_content"
+      <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Show Features" />
+        android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/btn_feature_detect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Features" />
+
+        <Button
+            android:id="@+id/btn_feature_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+    </LinearLayout>
+    
     <ImageView
         android:id="@+id/image_feature_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:contentDescription="wheat" />
+
+  
 
 </LinearLayout>
