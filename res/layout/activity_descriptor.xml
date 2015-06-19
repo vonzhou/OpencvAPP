@@ -7,15 +7,16 @@
 
     <Button
         android:id="@+id/btn_descriptor"
-        android:layout_width="wrap_content"
+        style="@style/btnStyleSeagull"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
         android:text="Show Descriptor" />
+
     <ImageView
         android:id="@+id/descriptor_image_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="wheat" />
-
-    
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

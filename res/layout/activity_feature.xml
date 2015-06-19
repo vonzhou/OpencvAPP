@@ -5,30 +5,44 @@
     android:orientation="vertical"
     tools:context="com.example.test.FeatureActivity" >
 
-      <LinearLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btn_feature_detect"
-            android:layout_width="wrap_content"
+            style="@style/btnStyleOrange"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
             android:text="Show Features" />
 
         <Button
             android:id="@+id/btn_feature_next"
-            android:layout_width="wrap_content"
+            style="@style/btnStyleBlackpearl"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
             android:text="Next" />
     </LinearLayout>
-    
+
     <ImageView
         android:id="@+id/image_feature_view"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:contentDescription="wheat" />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
-  
+    <Button
+        android:id="@+id/btn_load_picture"
+        style="@style/btnStyleSandrift"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:onClick="loadImagefromGallery"
+        android:text="Load Picture" />
 
 </LinearLayout>

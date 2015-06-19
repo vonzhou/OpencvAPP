@@ -2,30 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="com.example.test.MainActivity" >
-
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
     <TextView
         android:id="@+id/txt_view"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="25dip"
+        android:paddingTop="5dip"
         android:text="@string/hello_world" />
 
     <Button
         android:id="@+id/btn_gray"
-        android:layout_width="wrap_content"
+        style="@style/btnStyleOrange"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
         android:text="Native Test" />
 
     <Button
         android:id="@+id/btn_feature"
-        android:layout_width="wrap_content"
+        style="@style/btnStyleBlackpearl"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="->Next" />
-
-    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:text="Next" />
+     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:contentDescription="wheat" />
 
