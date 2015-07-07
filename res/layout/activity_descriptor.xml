@@ -13,6 +13,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:text="Show Descriptor" />
+     <Button
+            android:id="@+id/btn_extract_all_descriptors"
+            style="@style/btnStyleOrange"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:text="Extract ALL" />
 
     <ImageView
         android:id="@+id/descriptor_image_view"
