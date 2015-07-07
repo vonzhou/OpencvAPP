@@ -13,12 +13,22 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:text="Show Descriptor" />
+
+    <EditText
+        android:id="@+id/factor"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textCapWords"
+        android:singleLine="true" >
+       
+    </EditText>
      <Button
             android:id="@+id/btn_extract_all_descriptors"
             style="@style/btnStyleOrange"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             android:text="Extract ALL" />
 
@@ -27,4 +37,4 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
-</LinearLayout>
+    </LinearLayout>

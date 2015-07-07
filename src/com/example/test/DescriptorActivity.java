@@ -11,22 +11,21 @@ import org.opencv.imgproc.Imgproc;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 public class DescriptorActivity extends Activity {
 	private Button btn_descriptor;
 	private Button btn_extract_all; // choose a folder and get all the
 									// descriptors
+	private EditText editText ;
 	private ImageView imageView;
 	private Bitmap bitmap;
 	private static final String TAG = "Feature Descriptor::Activity";
@@ -41,6 +40,7 @@ public class DescriptorActivity extends Activity {
 
 		btn_descriptor = (Button) findViewById(R.id.btn_descriptor);
 		btn_extract_all = (Button) findViewById(R.id.btn_extract_all_descriptors);
+		editText = (EditText)findViewById(R.id.factor);
 		imageView = (ImageView) findViewById(R.id.descriptor_image_view);
 
 		bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wheat);
@@ -83,9 +83,11 @@ public class DescriptorActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// openFolder();
+				// get the factor from the EditText input
+				String factor = editText.getText().toString();
+				//double factor = Double.parseDouble(input);
 				long startTime = System.currentTimeMillis();
-				iterateImages();
+				iterateImages(factor);
 				long endTime = System.currentTimeMillis();
 				long totalTime = endTime - startTime;
 				showDialog("Cost:" + totalTime/1000d + " seconds.");
@@ -93,15 +95,15 @@ public class DescriptorActivity extends Activity {
 		});
 	}
 
-	public void iterateImages() {
-		File dir = new File(IMAGE_DIR);
+	public void iterateImages(String factor) {
+		File dir = new File(IMAGE_DIR + "resize" + factor + "/");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File file : directoryListing) {
 				Bitmap bitmap = BitmapFactory
 						.decodeFile(file.getAbsolutePath());
 				extractImageORBDescriptors(bitmap);
-				// Log.i(TAG, file.getName());
+				 Log.i(TAG, file.getName());
 				// Do something with child
 			}
 		} else {
