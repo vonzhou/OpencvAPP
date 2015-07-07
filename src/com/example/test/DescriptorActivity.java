@@ -84,17 +84,13 @@ public class DescriptorActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// openFolder();
+				long startTime = System.currentTimeMillis();
 				iterateImages();
+				long endTime = System.currentTimeMillis();
+				long totalTime = endTime - startTime;
+				showDialog("Cost:" + totalTime/1000d + " seconds.");
 			}
 		});
-	}
-
-	private void openFolder() {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-		Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
-				+ "/mnt/sdcard/imageset/");
-		intent.setDataAndType(uri, "*/*");
-		startActivity(Intent.createChooser(intent, "Open folder"));
 	}
 
 	public void iterateImages() {
@@ -114,7 +110,7 @@ public class DescriptorActivity extends Activity {
 			// to avoid race conditions with another process that deletes
 			// directories.
 		}
-		showDialog();
+		
 
 	}
 
@@ -144,7 +140,7 @@ public class DescriptorActivity extends Activity {
 		return resultBitmap;
 	}
 
-	public void showDialog() {
+	public void showDialog(String str) {
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				this);
 
@@ -153,7 +149,7 @@ public class DescriptorActivity extends Activity {
 
 		// set dialog message
 		alertDialogBuilder
-				.setMessage("All Descriptors Extracted!")
+				.setMessage("All Descriptors Extracted! "+str)
 				.setCancelable(false)
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
